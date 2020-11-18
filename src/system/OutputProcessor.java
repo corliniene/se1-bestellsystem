@@ -32,10 +32,12 @@ final class OutputProcessor implements Components.OutputProcessor{
 		StringBuffer sbAllOrders = new StringBuffer( "-------------\n" );
 		StringBuffer sbLineItem = new StringBuffer();
 		long totalPriceAllOrders = 0;
+		long totalVatAllOrders = 0;
 	
 		for(Order order : orders) {
 			Iterable<OrderItem> oI = order.getItems();
 			long totalPricePerOrder = 0;
+			long totalVatPerOrder = 0;
 			Customer customer = order.getCustomer();
 			String customerName = splitName(customer, customer.getFirstname() + " " + customer.getLastname());
 			
@@ -46,6 +48,8 @@ final class OutputProcessor implements Components.OutputProcessor{
 				String descr = orderitem.getDescription();
 				long endPrice = price * unitsOrdered;
 				totalPricePerOrder += endPrice;
+				long vat = OrderProcessor.vat( endPrice,1); 
+				totalVatPerOrder += vat;
 				
 				if(sbLineItem.length()!=0) {
 					sbLineItem.append(", ");
@@ -57,8 +61,10 @@ final class OutputProcessor implements Components.OutputProcessor{
 			sbAllOrders.append(fmtLine("#" + order.getId() + ", " + customerName + "'s " + "Bestellung: " + sbLineItem.toString(), fmtPrice(totalPricePerOrder, "EUR", 14), printLineWidth) + "\n");
 			sbLineItem.setLength(0);
 			totalPriceAllOrders += totalPricePerOrder;
+			totalVatAllOrders += totalVatPerOrder;
+			
 		}
-
+		
 		// calculate total price
 		String fmtPriceTotal = fmtPrice( totalPriceAllOrders, " EUR", 14);
 
@@ -66,6 +72,14 @@ final class OutputProcessor implements Components.OutputProcessor{
 		sbAllOrders.append( fmtLine( "-------------", "------------- -------------", printLineWidth ) )
 			.append( "\n" )
 			.append( fmtLine( "Gesamtwert aller Bestellungen:", fmtPriceTotal, printLineWidth ) );
+			
+		
+		if(printVAT == true) {
+			String fmtVat = fmtPrice( totalVatAllOrders, " EUR", 14);
+			sbAllOrders.append( "\n" )
+			.append( fmtLine( "Im Gesamtbetrag enthaltene Mehrwertsteuer (19%):", fmtVat, printLineWidth ) );
+
+		}
 
 		// print sbAllOrders StringBuffer with all output to System.out
 		System.out.println( sbAllOrders.toString() );

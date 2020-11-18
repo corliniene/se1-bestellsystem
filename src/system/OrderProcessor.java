@@ -34,14 +34,19 @@ final class OrderProcessor implements Components.OrderProcessor {
 
 	@Override
 	public long vat(long grossValue) {
-		// TODO Auto-generated method stub
-		return 0;
+		return vat(grossValue, 1);
 	}
 
 	@Override
 	public long vat(long grossValue, int rateIndex) {
-		// TODO Auto-generated method stub
-		return 0;
+		long tax = 0;
+		if(rateIndex == 1) {
+			tax = Math.round((grossValue/1.19)*0.19);
+		}
+		if(rateIndex == 2) {
+			tax = Math.round((grossValue/1.07)*0.07);
+		}
+		return tax;
 	}
 
 }

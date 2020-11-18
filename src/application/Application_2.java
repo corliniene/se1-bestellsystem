@@ -80,7 +80,7 @@ public final class Application_2 {
 		List<Order> orders = new ArrayList<Order>( List.of( o5234, o8592, o3563, o6135, o7256, o5478 ) );
 
 		
-		outputProcessor.printOrders( orders, false );		// Ausgabe aller Bestellungen
+		outputProcessor.printOrders( orders, true );		// Ausgabe aller Bestellungen
 
 	
 	
