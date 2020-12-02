@@ -39,7 +39,7 @@ final class OutputProcessor implements Components.OutputProcessor{
 			long totalPricePerOrder = 0;
 			long totalVatPerOrder = 0;
 			Customer customer = order.getCustomer();
-			String customerName = splitName(customer, customer.getFirstname() + " " + customer.getLastname());
+			String customerName = splitName(customer, customer.getFirstName() + " " + customer.getLastName());
 			
 			for(OrderItem orderitem : oI) {
 				Article art = orderitem.getArticle();
@@ -149,13 +149,13 @@ final class OutputProcessor implements Components.OutputProcessor{
 		String firstName = "";
 		if(name.trim().contains(",")) {
 			String[] names = name.split(",");
-			customer.setFirstname(names[1].toString().trim());
-			customer.setLastname(names[0].toString().trim());
+			customer.setFirstName(names[1].toString().trim());
+			customer.setLastName(names[0].toString().trim());
 		} else if(name.trim().contains(" ")) {
 			String[] names = name.split(" ");
 
 			for(int i = 0; i < (names.length - 1); i++) {
-				if(customer.getFirstname() != null && !customer.getFirstname().trim().equals(names[i])) {
+				if(customer.getFirstName() != null && !customer.getFirstName().trim().equals(names[i])) {
 					if(firstName != "") {
 						firstName += " " + names[i];
 					} else {
@@ -165,18 +165,18 @@ final class OutputProcessor implements Components.OutputProcessor{
 					firstName = names[i];
 				}
 			}
-			customer.setFirstname(firstName);
+			customer.setFirstName(firstName);
 			String lastName = names[(names.length - 1)];
-			customer.setLastname(lastName);
+			customer.setLastName(lastName);
 		}
 		
-		return customer.getLastname() + ", " + customer.getFirstname();
+		return customer.getLastName() + ", " + customer.getFirstName();
 	}
 	
 
 	@Override
 	public String singleName(Customer customer) {
-		String singleName = customer.getLastname() + ", " + customer.getFirstname();
+		String singleName = customer.getLastName() + ", " + customer.getFirstName();
 		return singleName;
 	}
 

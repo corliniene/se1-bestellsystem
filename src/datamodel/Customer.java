@@ -9,8 +9,8 @@ public class Customer {
 protected Customer(String id, String name, String contact ){
 	this.id = id;
 	this.firstName = "";
-	this.lastName = name;
-	this.contact = contact;
+	setLastName(name);
+	setContact(contact);
 }
 
 public String getId() {
@@ -18,24 +18,30 @@ public String getId() {
 	return this.id;
 }
 
-public String getFirstname() {
+public String getFirstName() {
 	
 	return this.firstName;
 }
 
-public void setFirstname(String firstName) {
-	this.firstName = firstName;
-
+public void setFirstName(String firstName) {
+	if(firstName == null) {
+		this.firstName = "";
+	} else {
+		this.firstName = firstName;
+	}
 }
 
-public String getLastname() {
+public String getLastName() {
 	
 	return this.lastName;
 }
 
-public void setLastname(String lastName) {
-	this.lastName = lastName;
-	
+public void setLastName(String lastName) {
+	if(lastName == null) {
+		this.lastName = "";
+	} else {
+		this.lastName = lastName;
+	}
 }
 
 	
@@ -47,8 +53,11 @@ public String getContact() {
 }
 
 public void setContact(String contact) {
-	this.contact = contact;
-
+	if(contact == null) {
+		this.contact = "";
+	} else {
+		this.contact = contact;
+	}
 }
 
 
