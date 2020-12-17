@@ -8,9 +8,9 @@ public class Article {
 
 	protected Article(String id, String descr, long price, int units ){
 		this.id = id;
-		this.description = descr;
-		this.unitPrice = price;
-		this.unitsInStore = units;
+		setDescription(descr);
+		setUnitPrice(price);
+		setUnitsInStore(units);
 		
 	}
 
@@ -27,8 +27,11 @@ public class Article {
 	  }
 	
 	public void setDescription(String descr) {
+		if(descr == null) {
+			this.description = "";
+		} else {
 		  this.description = descr;
-		  
+		} 
 	  }
 	
 	public long getUnitPrice() {
@@ -39,8 +42,11 @@ public class Article {
 
 	
 public void setUnitPrice(long price) {
+	if(price < 0 || price >= Long.MAX_VALUE) {
+		this.unitPrice = 0;
+	} else {
 	this.unitPrice = price;
-		
+		}
 	}
 
 public int getUnitsInStore() {
@@ -51,9 +57,11 @@ public int getUnitsInStore() {
 
 
 public void setUnitsInStore(int number) {
-	
+	if(number < 0 || number >= Integer.MAX_VALUE) {
+		this.unitsInStore = 0;
+	} else {
 	this.unitsInStore = number;
-	
+	}
 }
 
 
